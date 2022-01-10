@@ -15,18 +15,15 @@ class AuthController extends Controller
         try{
             $attributes= $request->validate(
                 [
-                    'firstname'=>'required|min:3|max:30|alpha',
-                    'lastname'=>'required|min:3|max:30|alpha',
+                    'name'=>'required|min:3|max:30',
                     'email'=>'required|email|unique:users',
-                    'username'=>'required|min:3|max:30|alpha_num',
-                    'phone'=>'required|digits:11',
                     'password'=>'required|min:6|max:30',
                 ]
             );
 
             $attributes['password']= bcrypt($attributes['password']);
 
-            $user = User::create($attributes);
+            User::create($attributes);
 
             $message= "Account created successfully, welcome aboard.";
             $success= true;
